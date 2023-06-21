@@ -1,0 +1,34 @@
+{
+  "configurations": [
+    {
+      "name": "Cloud Run: Run/Debug Locally",
+      "type": "cloudcode.cloudrun",
+      "request": "launch",
+      "build": {
+        "docker": {
+          "path": "Dockerfile"
+        }
+      },
+      "image": "api",
+      "service": {
+        "name": "api",
+        "containerPort": 8080,
+        "env": [          
+          {
+            "name": "TSC_CONFIG",
+            "value": "/app/tsconfig.json"
+          }
+        ],        
+        "resources": {
+          "limits": {
+            "memory": "256Mi"
+          }
+        }
+      },
+      "target": {
+        "minikube": {}
+      },
+      "watch": true
+    }
+  ]
+}

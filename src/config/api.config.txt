@@ -1,0 +1,147 @@
+//Express
+import express from "express";
+import cors from "cors";
+import session from "express-session";
+
+import swaggerUi from "swagger-ui-express";
+
+//Firebase
+import { initializeApp } from 'firebase/app';
+
+import { getAuth, 
+         GoogleAuthProvider, 
+         signInWithCredential      
+        } from "firebase/auth";
+
+//Passport
+import passport from "passport";
+import passportGoogle from "passport-google-oauth20";
+// import passportGithub from "passport-github";
+
+//Winston Logger
+import { errorLogger } from "../shared/utils/middlewares/error_logger.middleware";
+import { winstonLogger } from "../shared/utils/middlewares/logger.middlerware";
+//Routes
+import { CommonRoutesConfig } from "../shared/utils/common_routes.config";
+import { AuthRoutes } from "../domains/support/auth/presentation/auth.routes";
+import CRMRoutes from "../domains/core/crm/presentation/crm.routes";
+//import UserEntity from "../../shared/providers/email/google/domain/entities/user.entity"
+//import { MongoDBAL } from "../../shared/persistence/data/data_sources/external/mongodb/mongodb.dbal";
+import debug from "debug";
+//https://www.youtube.com/watch?v=TE_gZdWNDyg&ab_channel=BackbenchCoder
+import {config, firebaseConfig, googleConfig} from "./env";
+
+
+const api: express.Application = express();
+
+if (!config.port) {
+  console.log(`Error to get enviroment config ports`);
+  process.exit(1);
+}
+
+const debugLog: debug.IDebugger = debug("api");
+
+const app = initializeApp(firebaseConfig);
+
+const auth = getAuth(app);
+auth.languageCode = 'es';
+
+//---------------- CONNECT TO DATABASE(MONGODB) -----------------------
+// const dbal: MongoDBAL = MongoDBAL.getInstance();
+// dbal.connect(`mongodb://${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_NAME}`);
+
+//---------------- SECURITY WITH OAUTH2 -----------------------
+// Middlewares
+// Cookies
+api.use(
+  session({
+    secret: "🍪 session of clinica visual y auditiva api",
+    cookie: {
+      maxAge: 60000 * 60 * 24, // 1 day
+      //secure: true
+    },
+    saveUninitialized: false,
+    resave: false,
+    //name: "secret-cva"
+  })
+);
+
+// Swagger
+api.use(
+  "/docs",
+  swaggerUi.serve,
+  swaggerUi.setup(undefined, {
+    swaggerOptions: {
+      url: "/swagger.json",
+    },
+  })
+);
+
+// Passport
+api.use(passport.initialize());
+api.use(passport.session());
+//   new passportGithub.Strategy(
+const GoogleStrategy = passportGoogle.Strategy;
+passport.use(new GoogleStrategy(googleConfig,  
+  async (_accessToken: string, _refreshToken: string, profile: passportGoogle.Profile, cb:Function) => {
+    try {  
+    //   // Sign in to Firebase with the Google access token
+          const credential = GoogleAuthProvider.credential(null, _accessToken);
+          const userCredential = await signInWithCredential(auth, credential);    
+          console.log("🚨",config.hostName)     
+      // Return the user
+      return cb(null, userCredential.user);
+
+    } catch (error: any) {
+      const errors = [{code: "auth/user-disabled", message: "El usuario ya existía en el sistema pero ha sido deshabilitado, comuníquese con el administrador!"}]
+      //console.warn(error.code);
+      const customError = errors.find((customError) => customError.code == error.code);
+      return cb(customError?.message);
+    }
+
+
+
+    // logger.info("🍮 🍭 🍬 🍫 🍩 🍪"); 
+    // console.log(_accessToken);
+    // console.log(profile);
+    
+    // console.info("_________________________________________")
+    // return cb(null, profile);
+  }
+));
+
+
+passport.serializeUser((user, cb) => {
+  cb(null, user);
+});
+
+passport.deserializeUser(async (obj:any, cb) => {
+  //const user = await auth.currentUser;
+  //const user:UserEntity = Object.assign({}, new UserEntity(id, "", ""));
+  cb(null, obj);
+});
+
+//---------------- JSON RULES -------------------------------
+// Automatically allow cross-origin requests
+api.use(cors({ origin: true }));
+
+// Using req.body with POST Parameters to support
+// JSON-encoded and URL-encoded bodies.
+api.use(express.json());
+api.use(express.urlencoded({ extended: true }));
+
+// here we are configuring the expressWinston logging middleware,
+// which will automatically log all HTTP requests handled by Express.js
+api.use(winstonLogger);
+//------------------- ERROR MANAGER LAYER -------------------
+
+// adding the error handlers
+api.use(errorLogger);
+// api.use(errorResponder);
+// api.use(invalidPathHandler);
+//----------------------- CONFIG ROUTE RULES --------------------------------
+// here we are adding the UserRoutes to our array,
+// after sending the Express.js apilication object to have the routes added to our api!
+const routes: Array<CommonRoutesConfig> = [new CRMRoutes(api), new AuthRoutes(api)];
+
+export default api;

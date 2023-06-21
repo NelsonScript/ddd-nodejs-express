@@ -1,0 +1,128 @@
+exit
+db.customers.find().pretty()
+db.customers.insert({id:1, documentType:"CC", name:"Joao Felix", numberId:411321321})
+db.customers
+db.customers.find()
+  }
+name:"Jose Jimenez", numberId: 77441122
+id: 1, documentType: "CC",
+db.customers.insert({)
+show collections
+show dbs
+db.createCollection("customers")
+db.createCollections("customers")
+show dbs
+use bolivar_db
+show dbs
+exit
+show collections
+use bolivar_db
+exit
+show collections
+exit
+show users
+exit
+show dbs
+use bolivar_db
+show collections
+use customers
+show collections
+show dbs
+use bolivar
+show dbs
+exit
+show collections
+show dbs
+exit
+mongosh -u root -p developer --authenticationDatabase admin
+exit
+show collections
+db.customers.insert({"name":"Nelson"})
+db
+use bolivar
+exit
+show dbs
+db
+use bolivar
+db.getMongo()
+db.help()
+db.help
+use test
+use admin
+show test
+show admin
+show dbs
+exit
+cls
+exit
+2+2
+exit
+show databases
+show users
+exit
+show users
+show collections
+show dbs
+exit
+show dbs
+exit
+show dbs
+exit
+use c
+show dbs
+exit
+db.customers.find()
+db
+db.customers.find({name:"sad"})
+db.customers.find({})
+db.customers.find()
+config
+exit
+config
+exit
+show collections
+exit
+show collections
+db
+exit
+system.users
+use admin
+system.users
+db.grantRolesToUser("admin",["readWrite"])
+show collections
+use customers
+show collections
+db.grantRolesToUser("admin",["readWrite"])
+show collections
+db
+use admin
+db.customers.find({})
+exit
+db.customers.find({id:1})
+db.customers.find({})
+db.customers,find({})
+db
+show tables
+exit
+show collections
+exit
+show collections;
+show collection
+show collections
+use customers
+db
+show dbs
+show collections
+show databases
+db.customers.find().pretty()
+db.customers.insertMany([{ name: "Juan", origin: "usa" }])
+db.customers.insertMany([ {name: "Juan", origin: "usa"}];
+db.customers.insertMany([ {name: "Juan", origin: "usa"}] ;
+db.customers.find()
+db.customers.find().pretty()
+db.createCollection("personal")
+db.customers.find().pretty()
+db.fruits.find().pretty()
+show
+show tables
+use customers

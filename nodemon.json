@@ -1,0 +1,12 @@
+{
+  "verbose":  true,
+  "watch": ["src/**/*.js"],  
+  "ext": "ts,json",
+  "ignore": [
+    "src/**/*.spec.ts"
+  ],
+  "exec": "ts-node -r tsconfig-paths/register src/index.ts",            
+  "execMap": {
+    "ts": "node --inspect=0.0.0.0:9229 --nolazy -r ts-node/register"
+  }
+}

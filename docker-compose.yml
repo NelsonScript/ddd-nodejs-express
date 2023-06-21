@@ -1,0 +1,31 @@
+version: '2'
+networks:
+  app-tier:
+    driver: bridge
+services:
+  db:
+    image: mongo
+    ports: 
+      - 27017:27017
+    volumes:
+      - ./mongodb/database:/data/db
+      #- './src/config/mongodb.conf:/bitnami/mongodb/conf/mongodb.conf'
+    restart: always 
+    networks:
+      - app-tier 
+    environment:
+      - MONGO_INITDB_DATABASE=bolivar_db
+      #- MONGO_INITDB_ROOT_USERNAME=root
+      #- MONGO_INITDB_ROOT_PASSWORD=developer
+  api:
+    image: bitnami/node:latest
+    command: npm run dev
+    expose: 
+      - '3000' 
+    ports:
+      - 3000:3000
+    volumes:
+      - ./:/app
+      - ./nodemon.json:/app/nodemon.json
+    networks:
+      - app-tier  
