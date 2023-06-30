@@ -8,19 +8,7 @@ import GetDealCRMByIdController from './controller/get_deal_crm_by_id.controller
 import GetContactCRMByEmailController from "./controller/get_contact_crm_by_email.controller";
 import GetPropertyController from "./controller/get_property.controller";
 import isAuthenticated from "../../../../shared/utils/middlewares/is_authenticated.middleware";
-// {
-//   "firstname": "Max",
-//     "lastname": "Lencina",
-//       "dni": "39106491",
-//         "cuit": "20391064912",
-//           "documentType": "CC",
-//             "identificationNumber": "1000132432423",
-//               "email": "mlencina@debmedia.com",
-//                 "mobilePhone": "1130971795",
-//                   "tiposDeServicio": "PRO",
-//                     "turno": "9";
 
-// }
 class CRMRoutes extends CommonRoutesConfig{
   
   constructor(api: express.Application) {
@@ -48,27 +36,21 @@ class CRMRoutes extends CommonRoutesConfig{
       .post(isAuthenticated, (req: express.Request, res: express.Response, next: express.NextFunction) => {
         new CreateDealCRMController().execute(req, res);
       });
-
-    this.api.route('/v2/crm/appointment/whatsapp')
-      .post(isAuthenticated, (req: express.Request, res: express.Response, next: express.NextFunction) => {
+                     
+    this.api.route('/v2/crm/turn/ole')
+      .post(isAuthenticated, (req: express.Request, res: express.Response, next: express.NextFunction) => {        
         new AssociateContactDealCRMController().execute(req, res);
       });
 
-    this.api.route('/v2/crm/ole/turn')
-      .post(isAuthenticated, (req: express.Request, res: express.Response, next: express.NextFunction) => {
-        console.info("URL");
+    this.api.route('/v2/crm/turn/optica')
+      .post(isAuthenticated, (req: express.Request, res: express.Response, next: express.NextFunction) => {        
         new AssociateContactDealCRMController().execute(req, res);
-      });
+      });    
 
-    this.api.route('/v2/crm/ole/whatsapp')
+    this.api.route('/v2/crm/whatsapp')
       .post(isAuthenticated, (req: express.Request, res: express.Response, next: express.NextFunction) => {
         new AssociateContactDealCRMController().execute(req, res);
       }); 
-
-    this.api.route('/v2/crm/optica/turn')
-      .post(isAuthenticated, (req: express.Request, res: express.Response, next: express.NextFunction) => {
-        new AssociateContactDealCRMController().execute(req, res);
-      });
 
     //PROPERTY HUB  
     this.api.route('/v2/crm/hub/:hub/property/:property')      

@@ -146,17 +146,15 @@ class App {
   private configRoutes(): void {
 
     // here we are adding the UserRoutes to our array,
-    // after sending the Express.js apilication object to have the routes added to our api!
-  
-    this._routes = [new CRMRoutes(this.express), new AuthRoutes(this.express)];
-    console.log(this._routes[0]);
+    // after sending the Express.js apilication object to have the routes added to our api! 
+    this._routes = [new CRMRoutes(this.express), new AuthRoutes(this.express)];    
     // swagger docs
     this.express.use('/api/docs', swaggerUi.serve,swaggerUi.setup(this.swaggerDocument));
 
     // handle undefined routes
-    this.express.use("*", (req, res, next) => {
-      res.send("Make sure url is correct!");
-    });
+    // this.express.use("*", (req, res, next) => {
+    //   res.send("Make sure url is correct!");
+    // });
   }
 }
 

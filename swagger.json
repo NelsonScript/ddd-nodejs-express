@@ -15,197 +15,10 @@
   "schemes": [
     "http"
   ],
-  "host": "https://api.clinicavisualyauditiva.com",
+  "host": "api.clinicavisualyauditiva.com",
   "basePath": "/",
-  "paths": {
-    "/v2/crm/contact/{email}": {
-      "get": {
-        "tags": [
-          "CRM Contact"
-        ],
-        "summary": "Recibe un contacto por su email",
-        "parameters": [
-          {
-            "name": "email",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful response",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "total": {
-                  "type": "integer",
-                  "example": 1
-                },
-                "results": {
-                  "type": "array",
-                  "items": {
-                    "type": "object",
-                    "properties": {
-                      "id": {
-                        "type": "string",
-                        "example": "601"
-                      },
-                      "properties": {
-                        "type": "object",
-                        "properties": {
-                          "createdate": {
-                            "type": "string",
-                            "format": "date-time",
-                            "example": "2019-07-06T14:41:53.351Z"
-                          },
-                          "email": {
-                            "type": "string",
-                            "example": "juanito@dummy.com"
-                          },
-                          "firstname": {
-                            "type": "string",
-                            "example": "Juanito"
-                          },
-                          "hs_object_id": {
-                            "type": "string",
-                            "example": "601"
-                          },
-                          "lastmodifieddate": {
-                            "type": "string",
-                            "format": "date-time",
-                            "example": "2022-06-21T19:29:06.623Z"
-                          },
-                          "lastname": {
-                            "type": "string",
-                            "example": "Vargas"
-                          }
-                        }
-                      },
-                      "createdAt": {
-                        "type": "string",
-                        "format": "date-time",
-                        "example": "2019-07-06T14:41:53.351Z"
-                      },
-                      "updatedAt": {
-                        "type": "string",
-                        "format": "date-time",
-                        "example": "2022-06-21T19:29:06.623Z"
-                      },
-                      "archived": {
-                        "type": "boolean",
-                        "example": false
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/v2/crm/contact": {
-      "post": {
-        "tags": [
-          "CRM Contact"
-        ],
-        "summary": "Guarda la información de un contacto en la base de datos",
-        "description": "Guarda la información con los nombres de las propiedades válidas de los contactos. Las propiedades deben ser nombradas tal cual como se envian previamente por requerimientos de los clientes de la Clinica Visual y Auditiva.",
-        "security": [
-          {
-            "isAuthenticated": []
-          }
-        ],
-          "parameters": [
-            {
-              "name": "firstname",
-              "in": "formData",
-              "description": "Nombres del contacto",
-              "required": true,
-              "type": "string"
-            },
-            {
-              "name": "lastname",
-              "in": "formData",
-              "description": "Apellidos del contacto",
-              "required": true,
-              "type": "string"
-            },
-            {
-              "name": "tipo_de_documento",
-              "in": "formData",
-              "description": "Tipo de documento",
-              "required": true,
-              "type": "string"
-            },
-            {
-              "name": "n_mero_de_documento",
-              "in": "formData",
-              "description": "Número de documento",
-              "required": true,
-              "type": "string"
-            },
-            {
-              "name": "email",
-              "in": "formData",
-              "description": "Correo electrónico",
-              "required": true,
-              "type": "string"
-            },
-            {
-              "name": "n_mero_de_tel_fono_celular",
-              "in": "formData",
-              "description": "Número de teléfono celular",
-              "required": true,
-              "type": "string"
-            }
-          ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "firstname": {
-                    "type": "string"
-                  },
-                  "lastname": {
-                    "type": "string"
-                  },
-                  "tipo_de_documento": {
-                    "type": "string"
-                  },
-                  "n_mero_de_documento": {
-                    "type": "string"
-                  },
-                  "email": {
-                    "type": "string"
-                  },
-                  "n_mero_de_tel_fono_celular": {
-                    "type": "string"
-                  }
-                },
-                "example": {
-                  "firstname": "Max",
-                  "lastname": "Dummy",
-                  "tipo_de_documento": "CC",
-                  "n_mero_de_documento": "54564654",
-                  "email": "maximum@dummy.com",
-                  "n_mero_de_tel_fono_celular": "1130971795"
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Success"
-          }
-        }
-      }
-    },
-    "/v2/crm/ole/turn": {
+  "paths": {    
+    "/v2/crm/turn/ole": {
       "post": {
         "tags": [
           "Appointment by turn OLE"
@@ -215,7 +28,7 @@
             "isAuthenticated": []
           }
         ],
-        "parameters": [   
+        "parameters": [
           {
             "name": "hs_analytics_source",
             "in": "formData",
@@ -238,7 +51,7 @@
             "description": "__Contact__. Respuesta al evento.",
             "required": true,
             "type": "string",
-            "default":"ASIGNAR_TURNO"
+            "default": "ASIGNAR_TURNO"
           },
           {
             "name": "hs_lead_status",
@@ -296,14 +109,14 @@
             "description": "Fecha de nacimiento",
             "required": true,
             "type": "string"
-          }, 
+          },
           {
             "name": "n_mero_de_tel_fono_celular",
             "in": "formData",
             "description": "Número de teléfono celular. \n >El formato del teléfono es +indicativo pais número de teléfono: Ej +573253027934",
             "required": true,
             "type": "string"
-          },         
+          },
           {
             "name": "email",
             "in": "formData",
@@ -330,9 +143,9 @@
           {
             "name": "dealname",
             "in": "formData",
-            "description": "Nombre del negocio",
+            "description": "Nombre del negocio. \n > `Número de turno-Tipo de documento-Número de documento`",
             "required": true,
-            "type": "string"            
+            "type": "string"
           },
           {
             "name": "hubspot_owner_id",
@@ -340,7 +153,7 @@
             "description": "Propietario del negocio",
             "required": true,
             "type": "string"
-          },                    
+          },
           {
             "name": "tipo_de_entidad",
             "in": "formData",
@@ -363,7 +176,7 @@
         }
       }
     },
-    "/v2/crm/optica/turn": {
+    "/v2/crm/turn/optica": {
       "post": {
         "tags": [
           "Optica turn"
@@ -377,9 +190,9 @@
           {
             "name": "hubspot_owner_id",
             "in": "formData",
-            "description": "__Contact__. Propietario del contacto. \n > Depende de los valores seleccionados en la propiedad opt_tur_tipo_de_servicio del Hub de Deal \n - Cuando es `COTIZAR` ó `RECLAMAR_GAFAS` va al asesor en cola. \n - Si es `CAJA` no se asigna propietario del contacto",
+            "description": "__Contact__. Propietario del contacto. \n > Depende de los valores seleccionados en la propiedad `opt_tur_tipo_de_servicio` del Hub de Deal \n - Cuando es `COTIZAR` ó `RECLAMAR_GAFAS` va al asesor en cola. \n - Si es `CAJA` no se asigna propietario del contacto",
             "required": true,
-            "type": "string"            
+            "type": "string"
           },
           {
             "name": "hs_analytics_source",
@@ -487,15 +300,14 @@
           {
             "name": "dealstage",
             "in": "formData",
-            "description": "Etapa del negocio",
+            "description": "Etapa del negocio. \n > - Si es `COTIZAR` trabajo cotizado checkout_abandoned \n > - Si es `CAJA` o `RECLAMAR` es venta ganada",
             "required": true,
-            "type": "string",
-            "default": "checkout_abandoned"
+            "type": "string"
           },
           {
             "name": "dealname",
             "in": "formData",
-            "description": "Nombre del negocio",
+            "description": "Nombre del negocio \n > `Número de turno-Tipo de documento-Número de documento`",
             "required": true,
             "type": "string"
           },
@@ -528,10 +340,10 @@
         }
       }
     },
-    "/v2/crm/ole/whatsapp": {
+    "/v2/crm/whatsapp": {
       "post": {
         "tags": [
-          "CRM Appointment by WhatsApp"
+          "Appointment by WhatsApp"
         ],
         "security": [
           {
@@ -544,12 +356,12 @@
             "in": "formData",
             "description": "__Contact__. Propietario del contacto. \n Depende de los valores seleccionados de la propiedad del Hub Deal `tipos_de_servicio` y para el caso de Óptica tener en cuenta la `sede`. \n > - Si es `PRO` (Cirugías Particulares) \n -- `39468317` (Diana Collazos) \n -- `149638164` (Daniela Cardenas) \n > - Si es `CON`(Consulta particular) ó `DX`(Diagnóstico Particular): \n >> -- Si la Séde es `SAN_FERNANDO` \n >>> --- `115768751` (Tatiana Sanchez) \n --- `367844729` (Jhon Hurtado) \n\n >> -- Si la Sede es `PALMIRA` \n >>> ---`109998174` (Lorena Soto) \n\n >> --Si es `BUENAVENTURA` \n >>> ---`326704724`(Luz Mercedes Gonzalez Patarroyo) \n\n > - Si es `OPT`: \n >> -- Si la Séde es `SAN_FERNANDO` \n >>> ---`52640079` (Andrea Castaño) \n\n >> --Si la sede es `VALLADO`\n >>> ---`199401731` (Shalon Nathalia Muñoz) ",
             "required": true,
-            "type": "string"            
+            "type": "string"
           },
           {
             "name": "hs_analytics_source",
             "in": "formData",
-            "description": "__Contact__. Fuente original. Los demás valores se toman de la propiedad hs_analytics_source como están asignados. \n >Si es (Radio,Prensa,Televisión,Revista,Vallas,Evento Whatsapp) asignar el valor `OTHER_CAMPAIGNS`",
+            "description": "__Contact__. Fuente original. Los demás valores se toman de la propiedad hs_analytics_source como están asignados. \n >Si es (Radio,Prensa,Televisión,Revista,Vallas,Evento Whatsapp) asignar el valor `OTHER_CAMPAIGNS` \n \n |     Label     |     Value     |     Nombre del campo      | \n |-----------------|-----------------|------------------|\n| Paid Social     | PAID_SOCIAL     | Redes sociales   |\n| Other Campaigns | OTHER_CAMPAIGNS | Radio            |\n| Other Campaigns | OTHER_CAMPAIGNS | Prensa           |\n| Other Campaigns | OTHER_CAMPAIGNS | Televisión       |\n| Other Campaigns | OTHER_CAMPAIGNS | Revista          |\n| Other Campaigns | OTHER_CAMPAIGNS | Vallas           |\n| Other Campaigns | OTHER_CAMPAIGNS | Evento           |\n| Other Campaigns | OTHER_CAMPAIGNS | Whatsapp         |\n| Paid Search     | PAID_SEARCH     | Google           |\n| Organic Search  | ORGANIC_SEARCH  | Página web       |\n| Referrals       | REFERRALS       | Referido         |",
             "required": true,
             "type": "string"
           },
@@ -571,7 +383,7 @@
           {
             "name": "hs_lead_status",
             "in": "formData",
-            "description": "__Contact__. Lead Scoring. \n >Ver lead Scoring filtrado por evento Chatear por whatsapp",
+            "description": "__Contact__. Lead Scoring. \n >Ver `lead_scoring` filtrado por `evento_realizado_por_prospecto` `CHATEAR_POR_WHATSAPP` \n \n | Fuente original        | Evento               | Lead Status   | Respuesta a Evento | Lead Scoring | Life Cycle Contact |\n|------------------------|----------------------|---------------|--------------------|--------------|--------------------|\n| Redes sociales de pago | CHATEAR_POR_WHATSAPP | SOLICITAR_CITA | AGENDAR_CITA       | 80           | opportunity        |\n| Búsqueda de pago       | CHATEAR_POR_WHATSAPP | SOLICITAR_CITA | AGENDAR_CITA       | 80           | opportunity        |\n| Organic                | CHATEAR_POR_WHATSAPP | SOLICITAR_CITA | AGENDAR_CITA       | 80           | opportunity        |\n| Recomendación          | CHATEAR_POR_WHATSAPP | SOLICITAR_CITA | AGENDAR_CITA       | 80           | opportunity        |\n| Email marketing        | CHATEAR_POR_WHATSAPP | SOLICITAR_CITA | AGENDAR_CITA       | 80           | opportunity        |",
             "required": true,
             "type": "string"
           },
@@ -580,7 +392,7 @@
             "in": "formData",
             "description": "__Contact__. Etapa del ciclo de vida. \n >Ver tabla Etapa del ciclo de vida",
             "required": true,
-            "type": "string"           
+            "type": "string"
           },
           {
             "name": "hs_legal_basis",
@@ -624,14 +436,14 @@
             "description": "Fecha de nacimiento",
             "required": true,
             "type": "string"
-          },     
+          },
           {
             "name": "phone",
             "in": "formData",
             "description": "Número de teléfono fijo. \n >El formato del teléfono es indicativo de +pais prefijo nacional número de teléfono: Ej +576024778899",
             "required": true,
             "type": "string"
-          },               
+          },
           {
             "name": "n_mero_de_tel_fono_celular",
             "in": "formData",
@@ -645,7 +457,7 @@
             "description": "__Contact__. Municipio",
             "required": true,
             "type": "string"
-          },        
+          },
           {
             "name": "address",
             "in": "formData",
@@ -663,7 +475,7 @@
           {
             "name": "pipeline",
             "in": "formData",
-            "description": "Pipeline",
+            "description": "Pipeline. \n > Depende de los valores seleccionados de la propiedad del Hub Deal tipos_de_servicio y para el caso de Óptica tener en cuenta la sede. \n > - Si es `OPT` `75e28846-ad0d-4be2-a027-5e1da6590b98` \n > - Si es `PRO` o `CON` es `default`",
             "required": true,
             "type": "string",
             "default": "default"
@@ -671,15 +483,14 @@
           {
             "name": "dealstage",
             "in": "formData",
-            "description": "Etapa del negocio",
+            "description": "Etapa del negocio.  \n > - Si es `OPT` `75e28846-ad0d-4be2-a027-5e1da6590b98` es `trabajo cotizado`  \n > - Si es `PRO` o `CON` es `qualifiedtobuy`",
             "required": true,
-            "type": "string",
-            "default": "qualifiedtobuy"
+            "type": "string"
           },
           {
             "name": "dealname",
             "in": "formData",
-            "description": "Nombre del negocio",
+            "description": "Nombre del negocio.\n `WA-Tipo de documento-Número de documento`",
             "required": true,
             "type": "string"
           },
@@ -689,7 +500,7 @@
             "description": "__Deal__. Tipo de cirugía",
             "required": true,
             "type": "string"
-          },      
+          },
           {
             "name": "sede",
             "in": "formData",
@@ -740,7 +551,6 @@
             "type": "string",
             "default": "WHATSAPP"
           }
-
         ],
         "responses": {
           "200": {
@@ -749,7 +559,193 @@
         }
       }
     },
-
+    "/v2/crm/contact/{email}": {
+      "get": {
+        "tags": [
+          "CRM Contact"
+        ],
+        "summary": "Recibe un contacto por su email",
+        "parameters": [
+          {
+            "name": "email",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "total": {
+                  "type": "integer",
+                  "example": 1
+                },
+                "results": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string",
+                        "example": "601"
+                      },
+                      "properties": {
+                        "type": "object",
+                        "properties": {
+                          "createdate": {
+                            "type": "string",
+                            "format": "date-time",
+                            "example": "2019-07-06T14:41:53.351Z"
+                          },
+                          "email": {
+                            "type": "string",
+                            "example": "juanito@dummy.com"
+                          },
+                          "firstname": {
+                            "type": "string",
+                            "example": "Juanito"
+                          },
+                          "hs_object_id": {
+                            "type": "string",
+                            "example": "601"
+                          },
+                          "lastmodifieddate": {
+                            "type": "string",
+                            "format": "date-time",
+                            "example": "2022-06-21T19:29:06.623Z"
+                          },
+                          "lastname": {
+                            "type": "string",
+                            "example": "Vargas"
+                          }
+                        }
+                      },
+                      "createdAt": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2019-07-06T14:41:53.351Z"
+                      },
+                      "updatedAt": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2022-06-21T19:29:06.623Z"
+                      },
+                      "archived": {
+                        "type": "boolean",
+                        "example": false
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v2/crm/contact": {
+      "post": {
+        "tags": [
+          "CRM Contact"
+        ],
+        "summary": "Guarda la información de un contacto en la base de datos",
+        "description": "Guarda la información con los nombres de las propiedades válidas de los contactos. Las propiedades deben ser nombradas tal cual como se envian previamente por requerimientos de los clientes de la Clinica Visual y Auditiva.",
+        "security": [
+          {
+            "isAuthenticated": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "firstname",
+            "in": "formData",
+            "description": "Nombres del contacto",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "lastname",
+            "in": "formData",
+            "description": "Apellidos del contacto",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "tipo_de_documento",
+            "in": "formData",
+            "description": "Tipo de documento",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "n_mero_de_documento",
+            "in": "formData",
+            "description": "Número de documento",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "email",
+            "in": "formData",
+            "description": "Correo electrónico",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "n_mero_de_tel_fono_celular",
+            "in": "formData",
+            "description": "Número de teléfono celular",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "firstname": {
+                    "type": "string"
+                  },
+                  "lastname": {
+                    "type": "string"
+                  },
+                  "tipo_de_documento": {
+                    "type": "string"
+                  },
+                  "n_mero_de_documento": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  },
+                  "n_mero_de_tel_fono_celular": {
+                    "type": "string"
+                  }
+                },
+                "example": {
+                  "firstname": "Max",
+                  "lastname": "Dummy",
+                  "tipo_de_documento": "CC",
+                  "n_mero_de_documento": "54564654",
+                  "email": "maximum@dummy.com",
+                  "n_mero_de_tel_fono_celular": "1130971795"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
     "/v2/crm/deal": {
       "post": {
         "tags": [
@@ -777,7 +773,6 @@
         }
       }
     },
-
     "/v2/crm/hub/{hub}/property/{property}": {
       "get": {
         "tags": [
